@@ -7,7 +7,6 @@
 // Execute `rustlings hint structs3` or use the `hint` watch subcommand for a
 // hint.
 
-// I AM NOT DONE
 
 #[derive(Debug)]
 struct Package {
@@ -29,12 +28,14 @@ impl Package {
         }
     }
 
-    fn is_international(&self) -> ??? {
+    fn is_international(&self) -> bool {
         // Something goes here...
+        self.sender_country != self.recipient_country 
     }
 
-    fn get_fees(&self, cents_per_gram: i32) -> ??? {
+    fn get_fees(&self, cents_per_gram: i32) -> i32 {
         // Something goes here...
+         self.weight_in_grams * cents_per_gram
     }
 }
 
@@ -80,7 +81,7 @@ mod tests {
 
         let package = Package::new(sender_country, recipient_country, 1500);
 
-        assert_eq!(package.get_fees(cents_per_gram), 4500);
+        assert_eq!(package.get_fees(cents_per_gram), 4500); // 两个参数作比较，cents_per_gram * weight_in_grams =  4500 重多少g * 每g多少钱 == 4500？
         assert_eq!(package.get_fees(cents_per_gram * 2), 9000);
     }
 }
