@@ -81,7 +81,7 @@ mod tests {
 
         let package = Package::new(sender_country, recipient_country, 1500);
 
-        assert_eq!(package.get_fees(cents_per_gram), 4500); // 两个参数作比较，cents_per_gram * weight_in_grams =  4500 重多少g * 每g多少钱 == 4500？
+        assert_eq!(package.get_fees(cents_per_gram), 4500); // 两个参数作比较，cents_per_gram * weight_in_grams =  4500 重多少g * 每g多少钱 == 4500？  
         assert_eq!(package.get_fees(cents_per_gram * 2), 9000);
     }
 }
