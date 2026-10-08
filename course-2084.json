@@ -2,8 +2,8 @@
   "schema": 1,
   "courseId": 2084,
   "repository": "LearningOS/2026a-rustling-Askrabkblove-Zephyr",
-  "commit": "991781cde5e4bb0008d0616b17c2542dace2927b",
-  "score": 33,
+  "commit": "81823c666683d3dec6ed3c0c229d822ed6961ba1",
+  "score": 36,
   "totalScore": 110,
   "exercises": [
     {
@@ -240,23 +240,23 @@
     {
       "name": "enums1",
       "max": 1,
-      "score": 0,
-      "status": "fail",
-      "exitCode": 1
+      "score": 1,
+      "status": "pass",
+      "exitCode": 0
     },
     {
       "name": "enums2",
       "max": 1,
-      "score": 0,
-      "status": "fail",
-      "exitCode": 1
+      "score": 1,
+      "status": "pass",
+      "exitCode": 0
     },
     {
       "name": "enums3",
       "max": 1,
-      "score": 0,
-      "status": "fail",
-      "exitCode": 1
+      "score": 1,
+      "status": "pass",
+      "exitCode": 0
     },
     {
       "name": "strings1",
@@ -778,9 +778,9 @@
     }
   ],
   "student": "Askrabkblove-Zephyr",
-  "runId": "37644588470",
+  "runId": "37794604772",
   "runAttempt": "1",
   "upload": {
-    "status": "accepted"
+    "status": "pending"
   }
 }
