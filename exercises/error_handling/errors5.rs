@@ -22,17 +22,22 @@
 // Execute `rustlings hint errors5` or use the `hint` watch subcommand for a
 // hint.
 
-// I AM NOT DONE
+// 这个练习用到了一些我们课程后面才会讲的概念，比如 Box 和 From trait。现在不深入理解它们并不重要，但如果你想的话可以提前看看。目前，你可以把 Box<dyn ???> 这个类型理解为"我想要任何能 ??? 的东西"——考虑到 Rust 一贯的运行时安全标准，这个类型应该会让你觉得有点宽松！
+
+// 简而言之，这种 Box 的特定用法，适用于这样的场景：你想拥有一个值，而你只关心它是实现了某个特定 trait 的类型。为此，Box 被声明为 Box<dyn Trait>，其中 Trait 就是编译器在那个上下文中会去查找的 trait。对于这个练习，那个上下文就是可能出现在 Result 里的错误类型。
+
+// 我们能用什么来描述这两种错误呢？换句话说，有没有一个 trait，这两种错误都实现了？
 
 use std::error;
 use std::fmt;
 use std::num::ParseIntError;
 
 // TODO: update the return type of `main()` to make this compile.
-fn main() -> Result<(), Box<dyn ???>> {
+// Result<(), E> 只能有一个 E。写 E = ParseIntError 装不下 CreationError；写 E = CreationError 装不下 ParseIntError
+fn main() -> Result<(), Box<dyn error::Error>> {
     let pretend_user_input = "42";
-    let x: i64 = pretend_user_input.parse()?;
-    println!("output={:?}", PositiveNonzeroInteger::new(x)?);
+    let x: i64 = pretend_user_input.parse()?;  // ① 可能返回 ParseIntError
+    println!("output={:?}", PositiveNonzeroInteger::new(x)?); // ② 可能返回 CreationError
     Ok(())
 }
 

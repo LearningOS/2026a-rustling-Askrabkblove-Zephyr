@@ -9,7 +9,7 @@
 // Execute `rustlings hint errors6` or use the `hint` watch subcommand for a
 // hint.
 
-// I AM NOT DONE
+// 像 Box<dyn error::Error> 这样的"万能捕获型"错误类型，不建议用在库代码里。因为在库代码中，调用者可能希望根据错误的具体内容来做判断，而不是仅仅把它打印出来或继续往外传播。这里，我们定义一个自定义错误类型，让调用者能在我们的函数返回错误时，决定接下来该怎么做。
 
 use std::num::ParseIntError;
 
@@ -25,13 +25,17 @@ impl ParsePosNonzeroError {
         ParsePosNonzeroError::Creation(err)
     }
     // TODO: add another error conversion function here.
-    // fn from_parseint...
+    fn from_parseint(err: ParseIntError) -> ParsePosNonzeroError {
+        ParsePosNonzeroError::ParseInt(err)
+    }
 }
 
 fn parse_pos_nonzero(s: &str) -> Result<PositiveNonzeroInteger, ParsePosNonzeroError> {
     // TODO: change this to return an appropriate error instead of panicking
     // when `parse()` returns an error.
-    let x: i64 = s.parse().unwrap();
+    // TODO：把它改成在 parse() 返回错误时，返回一个合适的错误，而不是 panic。
+    let x: i64 = s.parse().map_err(ParsePosNonzeroError::from_parseint)?;
+
     PositiveNonzeroInteger::new(x).map_err(ParsePosNonzeroError::from_creation)
 }
 
