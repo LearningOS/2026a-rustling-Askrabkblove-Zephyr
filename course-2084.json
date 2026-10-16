@@ -2,8 +2,8 @@
   "schema": 1,
   "courseId": 2084,
   "repository": "LearningOS/2026a-rustling-Askrabkblove-Zephyr",
-  "commit": "8c9ad64d6c74ea6b6245a5dd4279303bdd2e7750",
-  "score": 42,
+  "commit": "7683eb70148811f16742c042337d990cfc0ca740",
+  "score": 46,
   "totalScore": 110,
   "exercises": [
     {
@@ -261,30 +261,30 @@
     {
       "name": "strings1",
       "max": 1,
-      "score": 0,
-      "status": "fail",
-      "exitCode": 1
+      "score": 1,
+      "status": "pass",
+      "exitCode": 0
     },
     {
       "name": "strings2",
       "max": 1,
-      "score": 0,
-      "status": "fail",
-      "exitCode": 1
+      "score": 1,
+      "status": "pass",
+      "exitCode": 0
     },
     {
       "name": "strings3",
       "max": 1,
-      "score": 0,
-      "status": "fail",
-      "exitCode": 1
+      "score": 1,
+      "status": "pass",
+      "exitCode": 0
     },
     {
       "name": "strings4",
       "max": 1,
-      "score": 0,
-      "status": "fail",
-      "exitCode": 1
+      "score": 1,
+      "status": "pass",
+      "exitCode": 0
     },
     {
       "name": "modules1",
@@ -778,9 +778,9 @@
     }
   ],
   "student": "Askrabkblove-Zephyr",
-  "runId": "38852115574",
+  "runId": "38854455436",
   "runAttempt": "1",
   "upload": {
-    "status": "accepted"
+    "status": "pending"
   }
 }
