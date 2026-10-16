@@ -9,14 +9,23 @@
 // Execute `rustlings hint errors1` or use the `hint` watch subcommand for a
 // hint.
 
-// I AM NOT DONE
+// enum Result<T, E> {
+//     Ok(T),    // 成功，携带值 T
+//     Err(E),   // 失败，携带错误 E
+// }
 
-pub fn generate_nametag_text(name: String) -> Option<String> {
+// enum Option<T> {
+//     Some(T),  // 有值
+//     None,     // 无值（但说不出为什么）
+// }
+
+
+pub fn generate_nametag_text(name: String) -> Result<String, String> {
     if name.is_empty() {
         // Empty names aren't allowed.
-        None
+        Err("`name` was empty; it must be nonempty.".to_string())
     } else {
-        Some(format!("Hi! My name is {}", name))
+        Ok(format!("Hi! My name is {}", name))
     }
 }
 
@@ -27,7 +36,7 @@ mod tests {
     #[test]
     fn generates_nametag_text_for_a_nonempty_name() {
         assert_eq!(
-            generate_nametag_text("Beyoncé".into()),
+            generate_nametag_text("Beyoncé".into()), // 把当前类型转换成另一个类型
             Ok("Hi! My name is Beyoncé".into())
         );
     }
