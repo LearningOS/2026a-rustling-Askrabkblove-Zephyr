@@ -2,8 +2,8 @@
   "schema": 1,
   "courseId": 2084,
   "repository": "LearningOS/2026a-rustling-Askrabkblove-Zephyr",
-  "commit": "81823c666683d3dec6ed3c0c229d822ed6961ba1",
-  "score": 36,
+  "commit": "8c9ad64d6c74ea6b6245a5dd4279303bdd2e7750",
+  "score": 42,
   "totalScore": 110,
   "exercises": [
     {
@@ -289,23 +289,23 @@
     {
       "name": "modules1",
       "max": 1,
-      "score": 0,
-      "status": "fail",
-      "exitCode": 1
+      "score": 1,
+      "status": "pass",
+      "exitCode": 0
     },
     {
       "name": "modules2",
       "max": 1,
-      "score": 0,
-      "status": "fail",
-      "exitCode": 1
+      "score": 1,
+      "status": "pass",
+      "exitCode": 0
     },
     {
       "name": "modules3",
       "max": 1,
-      "score": 0,
-      "status": "fail",
-      "exitCode": 1
+      "score": 1,
+      "status": "pass",
+      "exitCode": 0
     },
     {
       "name": "hashmaps1",
@@ -338,23 +338,23 @@
     {
       "name": "options1",
       "max": 1,
-      "score": 0,
-      "status": "fail",
-      "exitCode": 1
+      "score": 1,
+      "status": "pass",
+      "exitCode": 0
     },
     {
       "name": "options2",
       "max": 1,
-      "score": 0,
-      "status": "fail",
-      "exitCode": 1
+      "score": 1,
+      "status": "pass",
+      "exitCode": 0
     },
     {
       "name": "options3",
       "max": 1,
-      "score": 0,
-      "status": "fail",
-      "exitCode": 1
+      "score": 1,
+      "status": "pass",
+      "exitCode": 0
     },
     {
       "name": "errors1",
@@ -778,9 +778,9 @@
     }
   ],
   "student": "Askrabkblove-Zephyr",
-  "runId": "37794604772",
+  "runId": "38852115574",
   "runAttempt": "1",
   "upload": {
-    "status": "accepted"
+    "status": "pending"
   }
 }
