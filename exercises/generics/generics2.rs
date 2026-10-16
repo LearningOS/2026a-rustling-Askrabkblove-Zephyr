@@ -6,12 +6,15 @@
 // Execute `rustlings hint generics2` or use the `hint` watch subcommand for a
 // hint.
 
-struct Wrapper {
-    value: u32,
+struct Wrapper<T> {
+    value: T,
 }
 
-impl Wrapper {
-    pub fn new(value: u32) -> Self {
+// 这个强大的包装器（wrapper）能存储一个正整数。
+// 用泛型重写它，使其支持包装任意类型。
+
+impl<T> Wrapper<T> {
+    pub fn new(value: T) -> Self {
         Wrapper { value }
     }
 }
