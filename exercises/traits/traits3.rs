@@ -2,6 +2,8 @@
 //
 // Your task is to implement the Licensed trait for both structures and have
 // them return the same information without writing the same function twice.
+// 你的任务是为这两个结构体实现 Licensed trait，
+// 并让它们返回相同的信息，同时不要重复编写同一个函数两次。
 //
 // Consider what you can add to the Licensed trait.
 //
@@ -10,7 +12,9 @@
 
 
 pub trait Licensed {
-    fn licensing_info(&self) -> String;
+    fn licensing_info(&self) -> String {
+        String::from("Some information")
+    }
 }
 
 struct SomeSoftware {

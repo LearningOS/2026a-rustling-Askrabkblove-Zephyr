@@ -7,8 +7,6 @@
 // Execute `rustlings hint traits4` or use the `hint` watch subcommand for a
 // hint.
 
-// I AM NOT DONE
-
 pub trait Licensed {
     fn licensing_info(&self) -> String {
         "some information".to_string()
@@ -23,7 +21,8 @@ impl Licensed for SomeSoftware {}
 impl Licensed for OtherSoftware {}
 
 // YOU MAY ONLY CHANGE THE NEXT LINE
-fn compare_license_types(software: ??, software_two: ??) -> bool {
+// impl Licensed 作为参数类型，表示"任何实现了 Licensed 的类型"。 只要是实现了 Licensed 的类型就行，具体是啥我不管
+fn compare_license_types(software: impl Licensed, software_two: impl Licensed) -> bool {
     software.licensing_info() == software_two.licensing_info()
 }
 
@@ -36,7 +35,7 @@ mod tests {
         let some_software = SomeSoftware {};
         let other_software = OtherSoftware {};
 
-        assert!(compare_license_types(some_software, other_software));
+        assert!(compare_license_types(some_software, other_software)); //第一个参数传 SomeSoftware，第二个传 OtherSoftware
     }
 
     #[test]
@@ -44,6 +43,6 @@ mod tests {
         let some_software = SomeSoftware {};
         let other_software = OtherSoftware {};
 
-        assert!(compare_license_types(other_software, some_software));
+        assert!(compare_license_types(other_software, some_software));//第一个参数传 OtherSoftware，第二个传 SomeSoftware
     }
 }
