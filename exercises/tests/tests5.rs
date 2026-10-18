@@ -18,6 +18,9 @@
 // your code, while the Rust compiler hands its trust of soundness of your
 // code to yourself! If you cannot prove the memory safety and soundness of
 // your own code, take a step back and use safe code instead!
+
+// 注意：所有注释都是为了代码的可读性和可维护性，而Rust编译器将代码健全性的信任交给你自己！如果你无法证明自己代码的内存安全和健全性，请退一步，改用安全代码！
+
 //
 // Execute `rustlings hint tests5` or use the `hint` watch subcommand for a
 // hint.
