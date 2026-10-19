@@ -7,12 +7,16 @@
 // functionality using iterators. Try not to use imperative loops (for, while).
 // Only the two iterator methods (count_iterator and count_collection_iterator)
 // need to be modified.
+
+// 让我们定义一个简单的模型来追踪 Rustlings 练习的进度。进度
+// 将用一个哈希映射(hash map)来建模。练习的名字是键(key),
+// 进度是值(value)。这里创建了两个计数函数,用来统计具有
+// 给定进度的练习数量。请用迭代器重新实现这个计数功能。
+// 尽量不要使用命令式循环(for、while)。
+// 只需要修改两个迭代器方法(count_iterator 和 count_collection_iterator)。
 //
 // Execute `rustlings hint iterators5` or use the `hint` watch subcommand for a
 // hint.
-
-// I AM NOT DONE
-
 use std::collections::HashMap;
 
 #[derive(Clone, Copy, PartialEq, Eq)]
@@ -35,7 +39,10 @@ fn count_for(map: &HashMap<String, Progress>, value: Progress) -> usize {
 fn count_iterator(map: &HashMap<String, Progress>, value: Progress) -> usize {
     // map is a hashmap with String keys and Progress values.
     // map = { "variables1": Complete, "from_str": None, ... }
-    todo!();
+    map.iter()
+        .filter(|(_, v)| **v ==  value)
+        .count()
+    // todo!();
 }
 
 fn count_collection_for(collection: &[HashMap<String, Progress>], value: Progress) -> usize {
@@ -54,7 +61,13 @@ fn count_collection_iterator(collection: &[HashMap<String, Progress>], value: Pr
     // collection is a slice of hashmaps.
     // collection = [{ "variables1": Complete, "from_str": None, ... },
     //     { "variables2": Complete, ... }, ... ]
-    todo!();
+    // &[HashMap<String, Progress>] 是一个切片，每个元素都是一个哈希映射
+    // &HashMap<String, Progress> 是一个引用，指向一个哈希映射
+    collection.iter()   // 每个元素: &HashMap<String, Progress>
+         .flat_map(|map| map.values())      // 每个元素: &Progress
+         .filter(|v| **v == value)     // 筛出等于 value 的
+         .count()
+    // todo!();
 }
 
 #[cfg(test)]
