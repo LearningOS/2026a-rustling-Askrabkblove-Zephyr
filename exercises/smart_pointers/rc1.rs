@@ -8,9 +8,14 @@
 // Make this code compile by using the proper Rc primitives to express that the
 // sun has multiple owners.
 //
-// Execute `rustlings hint rc1` or use the `hint` watch subcommand for a hint.
 
-// I AM NOT DONE
+// 在这个练习中，我们想通过 Rc<T> 类型来表达“多重所有权”的概念。
+// 这是太阳系的一个模型——有一个 Sun（太阳）类型和多个 Planet（行星）。
+// 行星们拥有太阳的所有权，表示它们围绕太阳公转。
+//
+// 请使用适当的 Rc 原语（机制/基本操作）让这段代码编译通过，
+// 以此来表达太阳拥有多个所有者。
+// Execute `rustlings hint rc1` or use the `hint` watch subcommand for a hint.
 
 use std::rc::Rc;
 
@@ -60,17 +65,17 @@ fn main() {
     jupiter.details();
 
     // TODO
-    let saturn = Planet::Saturn(Rc::new(Sun {}));
+    let saturn = Planet::Saturn(Rc::clone(&sun));
     println!("reference count = {}", Rc::strong_count(&sun)); // 7 references
     saturn.details();
 
     // TODO
-    let uranus = Planet::Uranus(Rc::new(Sun {}));
+    let uranus = Planet::Uranus(Rc::clone(&sun));
     println!("reference count = {}", Rc::strong_count(&sun)); // 8 references
     uranus.details();
 
     // TODO
-    let neptune = Planet::Neptune(Rc::new(Sun {}));
+    let neptune = Planet::Neptune(Rc::clone(&sun));
     println!("reference count = {}", Rc::strong_count(&sun)); // 9 references
     neptune.details();
 
@@ -92,12 +97,15 @@ fn main() {
     println!("reference count = {}", Rc::strong_count(&sun)); // 4 references
 
     // TODO
+    drop(venus);
     println!("reference count = {}", Rc::strong_count(&sun)); // 3 references
 
     // TODO
+    drop(mercury);
     println!("reference count = {}", Rc::strong_count(&sun)); // 2 references
 
     // TODO
+    drop(earth);
     println!("reference count = {}", Rc::strong_count(&sun)); // 1 reference
 
     assert_eq!(Rc::strong_count(&sun), 1);
