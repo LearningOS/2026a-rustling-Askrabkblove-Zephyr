@@ -2,7 +2,10 @@
 	single linked list merge
 	This problem requires you to merge two ordered singly linked lists into one ordered singly linked list
 */
-// I AM NOT DONE
+/*
+	单链表合并
+	本题要求你将两个有序的单链表合并成一个有序的单链表
+*/
 
 use std::fmt::{self, Display, Formatter};
 use std::ptr::NonNull;
@@ -70,12 +73,60 @@ impl<T> LinkedList<T> {
         }
     }
 	pub fn merge(list_a:LinkedList<T>,list_b:LinkedList<T>) -> Self
+    where
+        T: PartialOrd,
 	{
 		//TODO
+        if list_a.length < 1 {
+            return list_b;
+        }
+        if list_b.length < 1 {
+            return list_a;
+        }
+
+        let mut p = list_a.start;// Option<NonNull<Node<T>>> std::ptr::NonNull
+        let mut q = list_b.start;
+        let mut head: Option<NonNull<Node<T>>> = None;
+        let mut tail: Option<NonNull<Node<T>>> = None;
+        while p.is_some() && q.is_some() {
+            let p_node = p.unwrap();
+            let q_node = q.unwrap();
+
+            // 读两个节点的 val（只读引用，不移动值）
+            let p_val = unsafe { &(*p_node.as_ptr()).val };
+            let q_val = unsafe { &(*q_node.as_ptr()).val };
+            let take_p = *p_val <= *q_val;
+            let selected = if take_p { p_node } else { q_node };
+            // 把 selected 接到结果尾部
+            match tail {
+                None => head = Some(selected),                        // 第一个节点
+                Some(t) => unsafe { (*t.as_ptr()).next = Some(selected) }, // 后续节点
+            }
+            tail = Some(selected);  // tail = tail->next
+
+            // 推进被选中的那个游标
+            if take_p {
+                p = unsafe { (*p_node.as_ptr()).next }; // p = p->next
+            } else {
+                q = unsafe { (*q_node.as_ptr()).next }; // q = q->next
+            }
+        }
+        // 步骤 4：接剩余段
+        let rest = if p.is_some() { p } else { q };
+        let rest_end = if p.is_some() { list_a.end } else { list_b.end };
+
+        match tail {
+            None => head = rest,
+            Some(t) => unsafe { (*t.as_ptr()).next = rest },
+        }
+
+        // 步骤 5：确定结果尾
+        let end = if rest.is_some() { rest_end } else { tail };
+
 		Self {
-            length: 0,
-            start: None,
-            end: None,
+            length: list_a.length + list_b.length,
+            start: head,
+            end,
         }
 	}
 }
