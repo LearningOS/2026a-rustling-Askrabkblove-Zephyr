@@ -6,7 +6,9 @@
 //
 // Execute `rustlings hint from_into` or use the `hint` watch subcommand for a
 // hint.
-
+// From trait 用于“值到值”的转换。如果为一个类型正确地实现了 From，
+// 那么 Into trait 应该能反向工作。你可以在此处阅读更多相关内容：
+// https://doc.rust-lang.org/std/convert/trait.From.html
 #[derive(Debug)]
 struct Person {
     name: String,
@@ -40,10 +42,46 @@ impl Default for Person {
 // If while parsing the age, something goes wrong, then return the default of
 // Person Otherwise, then return an instantiated Person object with the results
 
-// I AM NOT DONE
+// 步骤：
+// 如果提供的字符串长度为 0，则返回 Person 的默认值。
+// 以字符串中存在的逗号为分隔符，对字符串进行分割（Split）。
+// 提取分割操作得到的第一个元素，将其作为 name（姓名）。
+// 如果 name 为空，则返回 Person 的默认值。
+// 提取分割操作得到的另一个元素，并将其解析（parse）为 usize 作为 age（年龄）。
+// 如果在解析年龄的过程中出现任何错误，则返回 Person 的默认值；否则，返回一个用这些结果实例化的 Person 对象。
 
 impl From<&str> for Person {
     fn from(s: &str) -> Person {
+        if s.is_empty() {
+            return Person::default();
+        }
+        // 步骤 2：以逗号分割字符串
+        let mut parts = s.split(',');
+        // 步骤 3：提取第一个元素作为 name
+        // 用 unwrap_or("") 防止没有逗号导致崩溃，用 trim() 去掉可能存在的空格
+        let name = parts.next().unwrap_or("").trim();
+        // 步骤 4：如果 name 为空，返回默认值
+        if name.is_empty() {
+            return Person::default();
+        }
+        // 步骤 5：取下一个元素解析为 age
+        // 解析失败（无逗号 / 非数字 / 溢出 / 空串）都返回默认值
+        // 如果 next() 得到 Some(s)，就对 s 调用 str::trim（即 s.trim()），得到去掉首尾空白的 &str 再包成 Some；如果 next() 是 None，结果还是 None。
+        // map 的核心作用一句话：在不解包 Option（或 Result）的情况下，对里面的值做变换，保持容器结构不变。
+        let age = match parts.next().map(str::trim).map(str::parse::<usize>) {
+            Some(Ok(age)) => age,
+            _ => return Person::default(),
+        };
+        // 关键补充：必须恰好两段，多出任何内容都算错误
+        if parts.next().is_some() {
+            return Person::default();
+        }
+
+        // 步骤 6：用结果实例化 Person
+        Person {
+            name: name.to_string(),
+            age,
+        }
     }
 }
 

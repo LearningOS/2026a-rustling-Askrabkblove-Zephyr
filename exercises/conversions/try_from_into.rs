@@ -27,8 +27,6 @@ enum IntoColorError {
     IntConversion,
 }
 
-// I AM NOT DONE
-
 // Your task is to complete this implementation and return an Ok result of inner
 // type Color. You need to create an implementation for a tuple of three
 // integers, an array of three integers, and a slice of integers.
@@ -36,11 +34,22 @@ enum IntoColorError {
 // Note that the implementation for tuple and array will be checked at compile
 // time, but the slice implementation needs to check the slice length! Also note
 // that correct RGB color values must be integers in the 0..=255 range.
+// 你的任务是完成这个实现，并返回一个内部类型为 Color 的 Ok 结果。
+// 你需要为三个整数的元组、三个整数的数组、以及整数切片分别创建实现。
+//
+// 注意：元组和数组的实现会在编译期被检查，但切片的实现需要在运行时检查切片长度！
+// 另外注意，正确的 RGB 颜色值必须是 0..=255 范围内的整数。
 
 // Tuple implementation
 impl TryFrom<(i16, i16, i16)> for Color {
     type Error = IntoColorError;
     fn try_from(tuple: (i16, i16, i16)) -> Result<Self, Self::Error> {
+        // ?成功就取出值继续，失败就提前 return Err(...) 把错误交给调用者。
+        let (r, g, b) = tuple;
+        let red = u8::try_from(r).map_err(|_| IntoColorError::IntConversion)?;
+        let green = u8::try_from(g).map_err(|_| IntoColorError::IntConversion)?;
+        let blue = u8::try_from(b).map_err(|_| IntoColorError::IntConversion)?;
+        Ok(Color { red, green, blue })
     }
 }
 
@@ -48,6 +57,10 @@ impl TryFrom<(i16, i16, i16)> for Color {
 impl TryFrom<[i16; 3]> for Color {
     type Error = IntoColorError;
     fn try_from(arr: [i16; 3]) -> Result<Self, Self::Error> {
+        let red   = u8::try_from(arr[0]).map_err(|_| IntoColorError::IntConversion)?;
+        let green = u8::try_from(arr[1]).map_err(|_| IntoColorError::IntConversion)?;
+        let blue  = u8::try_from(arr[2]).map_err(|_| IntoColorError::IntConversion)?;
+        Ok(Color { red, green, blue })
     }
 }
 
@@ -55,6 +68,16 @@ impl TryFrom<[i16; 3]> for Color {
 impl TryFrom<&[i16]> for Color {
     type Error = IntoColorError;
     fn try_from(slice: &[i16]) -> Result<Self, Self::Error> {
+        // 关键：切片长度运行时才知道，必须先检查
+        if slice.len() != 3 {
+            return Err(IntoColorError::BadLen);
+        }
+
+        let red   = u8::try_from(slice[0]).map_err(|_| IntoColorError::IntConversion)?;
+        let green = u8::try_from(slice[1]).map_err(|_| IntoColorError::IntConversion)?;
+        let blue  = u8::try_from(slice[2]).map_err(|_| IntoColorError::IntConversion)?;
+
+        Ok(Color { red, green, blue })
     }
 }
 
